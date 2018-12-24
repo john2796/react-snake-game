@@ -1,25 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+
+
+const TICK_RATE = 100;
+const GRID_SIZE = 35;
+const GRID = [];
+
+for (let i = 0; i < GRID_SIZE.length; i++) {
+  GRID.push(i);
+}
+
+const DIRECTIONS = {
+  UP: 'UP',
+  BOTTOM: 'BOTTOM',
+  RIGHT: 'RIGHT',
+  LEFT: 'LEFT',
+}
+
+const DIRECTION_TICKS = {
+  UP: (x, y) => ({ x, y: y - 1 }),
+  BOTTOM: (x, y) => ({ x, y: y + 1 }),
+  RIGHT: (x, y) => ({ x: x + 1, y }),
+  LEFT: (x, y) => ({ x: x - 1, y }),
+}
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1>tesitng</h1>
       </div>
     );
   }
