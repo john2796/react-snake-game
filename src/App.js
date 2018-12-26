@@ -24,12 +24,19 @@ const DIRECTION_TICKS = {
   LEFT: (x, y) => ({ x: x - 1, y }),
 }
 
+const KEY_CODES_MAPPER = {
+  38: 'UP',
+  39: 'RIGHT',
+  37: 'LEFT',
+  40: 'BOTTOM',
+}
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>tesitng</h1>
+        <h1>Snake Game </h1>
       </div>
     );
   }
