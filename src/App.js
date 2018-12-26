@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cs from 'classnames';
 
 
 
@@ -57,8 +58,17 @@ const getSnakeWithoutStub = (snake) =>
 const getSnakeTail = (snake) =>
   snake.coordinates.slice(1)
 
+const getIsSnakeOutside = (snake) =>
+  getSnakeHead(snake).x >= GRID_SIZE ||
+  getSnakeHead(snake).y >= GRID_SIZE ||
+  getSnakeHead(snake).x <= 0 ||
+  getSnakeHead(snake).y <= 0;
+
 const getIsSnakeClumy = (snake) =>
-  isSnake(getSnakeHead(snake).x, getSnakeHead(snake).y, snack.coordinate.x, snack.coordinate.y)
+  isSnake(getSnakeHead(snake).x, getSnakeHead(snake).y, getSnakeTail(snake));
+
+const getIsSnakeEating = ({ snake, snack }) =>
+  isPosition(getSnakeHead(snake).x, getSnakeHead(snake).y, snack.coordinate.x, snack.coordinate.y);
 
 const getCells = (isGameOver, snake, snack, x, y) =>
   cs(
@@ -69,7 +79,33 @@ const getCells = (isGameOver, snake, snack, x, y) =>
       'grid-cell-snack': isPosition(x, y, snack.coordinate.x, snack.coordinate.y),
       'grid-cell-hit': isGameOver && isPosition(x, y, getSnakeHead(snake).x, getSnakeHead(snake).y),
     }
-  )
+  );
+
+const applySnakePosition = (prevState) => {
+  const isSnakeEating = getIsSnakeEating(prevState)
+
+  const snakeHead = DIRECTION_TICKS[prevState.playground.direction](
+    getSnakeHead(prevState.snake).x,
+    getSnakeHead(prevState.snake).y,
+  );
+
+  const snakeTail = isSnakeEating
+    ? prevState.snake.coordinates
+    : getSnakeHead(prevState.snake);
+
+  const snackCoordinate = isSnakeEating
+    ? getRandomCoordinate()
+    : prevState.snack.coordinate;
+
+  return {
+    snake: {
+      coordinates: [snakeHead, ...snakeTail],
+    },
+    snack: {
+      coordinate: snackCoordinate,
+    }
+  }
+}
 
 
 class App extends Component {
