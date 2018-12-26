@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 
 
-const TICK_RATE = 100;
-const GRID_SIZE = 35;
-const GRID = [];
+const TICK_RATE = 100
+const GRID_SIZE = 35
+const GRID = []
 
 for (let i = 0; i < GRID_SIZE.length; i++) {
-  GRID.push(i);
+  GRID.push(i)
 }
 
 const DIRECTIONS = {
@@ -46,16 +46,40 @@ const isPosition = (x, y, diffX, diffY) =>
   x === diffX && y === diffY
 
 const isSnake = (x, y, snakeCoordinate) =>
+  snakeCoordinate.filter(coordinate => isPosition(coordinate.x, coordinate.y, x, y)).length
 
+const getSnakeHead = (snake) =>
+  snake.coordinate[0]
 
-  class App extends Component {
-    render() {
-      return (
-        <div className="App">
-          <h1>Snake Game </h1>
-        </div>
-      );
+const getSnakeWithoutStub = (snake) =>
+  snake.coordinates.slice(0, snake.coordinates.length - 1)
+
+const getSnakeTail = (snake) =>
+  snake.coordinates.slice(1)
+
+const getIsSnakeClumy = (snake) =>
+  isSnake(getSnakeHead(snake).x, getSnakeHead(snake).y, snack.coordinate.x, snack.coordinate.y)
+
+const getCells = (isGameOver, snake, snack, x, y) =>
+  cs(
+    'grid-cell',
+    {
+      'grid-cell-border': isBorder(x, y),
+      'grid-cell-snake': isSnake(x, y, snake.coordinates),
+      'grid-cell-snack': isPosition(x, y, snack.coordinate.x, snack.coordinate.y),
+      'grid-cell-hit': isGameOver && isPosition(x, y, getSnakeHead(snake).x, getSnakeHead(snake).y),
     }
+  )
+
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <h1>Snake Game </h1>
+      </div>
+    );
   }
+}
 
 export default App;
