@@ -107,12 +107,62 @@ const applySnakePosition = (prevState) => {
   }
 }
 
+const applyGameOver = (prevState) => ({
+  playground: {
+    isGameOver: true
+  }
+})
+
+const doChangeDirection = (direction) = () => ({
+  playground: {
+    direction,
+  }
+})
+
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      playground: {
+        direction: DIRECTIONS.RIGHT,
+        isGameOver: false,
+      },
+      snake: {
+        coordinates: [getRandomCoordinate()]
+      },
+      snack: {
+        coordinate: getRandomCoordinate()
+      }
+    }
+  }
+
+  componentDidMount = () => {
+    this.interval = setInterval(this.onTick, TICK_RATE)
+    window.addEventListener('keyup', this.onChangeDirection, false)
+  }
+  onChangeDirection = (event) => {
+    if (KEY_CODES_MAPPER[event.keyCode]) {
+      this.setState(doChangeDirection(KEY_CODES_MAPPER[event.keyCode]))
+    }
+  }
+  onTick = () => {
+    getIsSnakeOutside(this.state.snake) || getIsSnakeClumy(this.state.snake)
+      ? this.setState(applyGameOver)
+      : this.setState(applySnakePosition)
+  }
+
   render() {
+    const {
+      snake,
+      snack,
+      playground
+    } = this.state
+
     return (
       <div className="App">
-        <h1>Snake Game </h1>
+        <h1>Snake! </h1>
       </div>
     );
   }
