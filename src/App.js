@@ -31,15 +31,31 @@ const KEY_CODES_MAPPER = {
   40: 'BOTTOM',
 }
 
+const getRandomNumberFromRange = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min)
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>Snake Game </h1>
-      </div>
-    );
+const getRandomCoordinate = () => ({
+  x: getRandomNumberFromRange(1, GRID_SIZE - 1),
+  y: getRandomNumberFromRange(1, GRID_SIZE - 1)
+})
+
+const isBorder = (x, y) =>
+  x === 0 || y === 0 || x === GRID_SIZE || y === GRID_SIZE
+
+const isPosition = (x, y, diffX, diffY) =>
+  x === diffX && y === diffY
+
+const isSnake = (x, y, snakeCoordinate) =>
+
+
+  class App extends Component {
+    render() {
+      return (
+        <div className="App">
+          <h1>Snake Game </h1>
+        </div>
+      );
+    }
   }
-}
 
 export default App;
