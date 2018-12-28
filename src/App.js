@@ -168,10 +168,55 @@ class App extends Component {
   }
 
   render() {
+    const {
+      snake,
+      snack,
+      playground
+    } = this.state
     return (
-      <div>testing</div>
+      <div>
+        <h1>Snake Game!</h1>
+        <Grid
+          snake={snake}
+          snack={snack}
+          isGameOver={playground.isGameOver}
+        />
+      </div>
     )
   }
 }
+
+const Grid = ({ isGameOver, snake, snack }) => (
+  <div>
+    {GRID.map(y =>
+      <Row
+        y={y}
+        key={y}
+        snake={snake}
+        snack={snack}
+        isGameOver={isGameOver}
+      />
+    )}
+  </div>
+)
+
+const Row = ({ isGameOver, snake, snack, y }) => (
+  <div className="grid-row">
+    {GRID.map(x =>
+      <Cell
+        x={x}
+        y={y}
+        key={x}
+        snake={snake}
+        snack={snack}
+        isGameOver={isGameOver}
+      />
+    )}
+  </div>
+)
+
+const Cell = ({ isGameOver, snake, snack, x, y }) => (
+  <div className={getCellCs(isGameOver, snake, snack, x, y)} />
+)
 
 export default App
