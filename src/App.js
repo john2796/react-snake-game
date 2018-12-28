@@ -40,3 +40,26 @@ const getRandomCoordinate = () => ({
   y: getRandomNumberFromRange(1, GRID_SIZE - 1),
 })
 
+const isBorder = (x, y) => (
+  x === 0 || y === 0 || x === GRID_SIZE || y === GRID_SIZE
+)
+
+const isPosition = (x, y, diffX, diffY) => (
+  x === diffX && y === diffY
+)
+
+const isSnake = (x, y, snakeCoordinates) => (
+  snakeCoordinates.filter(coordinate => isPosition(coordinate.x, coordinate.y, x, y)).length
+)
+
+const getSnakeHead = (snake) => (
+  snake.coordinate[0]
+)
+
+const getSnakeWithoutStub = (snake) => (
+  snake.coordinates.slice(0, snakeCoordinates.length - 1)
+)
+
+const getSnakeTail = (snake) => (
+  snake.coordinates.slice(1)
+)
