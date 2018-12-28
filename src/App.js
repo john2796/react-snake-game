@@ -79,4 +79,13 @@ const getIsSnakeEating = ({ snake, snack }) => (
   isPosition(getSnakeHead(snake).x, getSnakeHead(snake).y, snack.coordinate.x, snack.coordinate.y)
 )
 
-const getCells
+const getCellCs = (isGameOver, snake, snack, x, y) =>
+  cs(
+    'grid-cell',
+    {
+      'grid-cell-border': isBorder(x, y),
+      'grid-cell-snake': isSnake(x, y, snake.coordinates),
+      'grid-cell-snack': isPosition(x, y),
+      'grid-cell-hit': isBorder(x, y),
+    }
+  )
