@@ -63,3 +63,20 @@ const getSnakeWithoutStub = (snake) => (
 const getSnakeTail = (snake) => (
   snake.coordinates.slice(1)
 )
+
+const getIsSnakeOutside = (snake) => (
+  getSnakeHead(snake).x >= GRID_SIZE ||
+  getSnakeHead(snake).y >= GRID_SIZE ||
+  getSnakeHead(snake).x <= 0 ||
+  getSnakeHead(snake).y <= 0
+)
+
+const getIsSnakeClumy = (snake) => (
+  isSnake(getSnakeHead(snake).x, getSnakeHead(snake).y, getSnakeTail(snake))
+)
+
+const getIsSnakeEating = ({ snake, snack }) => (
+  isPosition(getSnakeHead(snake).x, getSnakeHead(snake).y, snack.coordinate.x, snack.coordinate.y)
+)
+
+const getCells
