@@ -23,3 +23,20 @@ const DIRECTION_TICKS = {
   RIGHT: (x, y) => ({ x: x + 1, y }),
   LEFT: (x, y) => ({ x: x - 1, y }),
 }
+
+const KEY_CODES_MAPPER = {
+  38: 'UP',
+  39: 'RIGHT',
+  37: 'LEFT',
+  40: 'BOTTOM',
+}
+
+const getRandomNumberFromRange = (min, max) => (
+  Math.floor(Math.random() * (max - min + 1) + min)
+)
+
+const getRandomCoordinate = () => ({
+  x: getRandomNumberFromRange(1, GRID_SIZE - 1),
+  y: getRandomNumberFromRange(1, GRID_SIZE - 1),
+})
+
