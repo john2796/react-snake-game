@@ -85,7 +85,32 @@ const getCellCs = (isGameOver, snake, snack, x, y) =>
     {
       'grid-cell-border': isBorder(x, y),
       'grid-cell-snake': isSnake(x, y, snake.coordinates),
-      'grid-cell-snack': isPosition(x, y),
-      'grid-cell-hit': isBorder(x, y),
+      'grid-cell-snack': isPosition(x, y, snack.coordinate.x, snack.coordinate.y),
+      'grid-cell-hit': isGameOver && isPosition(x, y, getSnakeHead(snake).x, getSnakeHead(snake).y),
     }
   )
+
+const applySnakePosition = (prevState) => {
+  const isSnakeEating = getIsSnakeEating(prevState)
+
+  const snakeHead = DIRECTION_TICKS[prevState.playground.direction](
+    getSnakeHead(prevState.snake).x,
+    getSnakeHead(prevState.snake).y,
+  )
+  const snakeTail = isSnakeEating
+    ? prevState.snake.coordinates
+    : getSnakeWithoutStub(prevState.snake
+    )
+  const snakeCoordinate = isSnakeEating
+    ? getRandomCoordinate()
+    : prevState.snack.coordinate
+
+  return {
+    snake: {
+      coordinates: [snakeHead, ...snakeTail],
+    },
+    snack: {
+      coordinate: snackCoordinate,
+    }
+  }
+}
